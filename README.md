@@ -57,9 +57,22 @@ management:
 </appender>
 ```
 
+## Setup (Splunk)
+
+1. Run Splunk locally:
+   ```bash
+   docker run -d --name splunk -p 8000:8000 -p 8088:8088 \
+     -e "SPLUNK_START_ARGS=--accept-license" \
+     -e "SPLUNK_PASSWORD=ChangeMe123!" \
+     splunk/splunk:latest
+   ```
+   Wait a couple minutes, then Splunk Web is at http://localhost:8000 (`admin` / `ChangeMe123!`).
+2. Settings → Data Inputs → HTTP Event Collector → New Token. Name it, index `main`, submit, copy the token value.
+3. Global Settings on that same page → All Tokens: `Enabled`.
+
 ## Run it manually
 
-1. Splunk running locally (Docker), HEC token created in Splunk Web (Settings → Data Inputs → HTTP Event Collector), bound to index `main`.
+1. Splunk running (above), HEC token created, bound to index `main`.
 2. Export the token:
    ```bash
    export SPLUNK_HEC_TOKEN=<your-token>

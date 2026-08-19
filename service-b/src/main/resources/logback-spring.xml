@@ -1,0 +1,33 @@
+<configuration>
+    <springProperty scope="context" name="appName"
+                    source="spring.application.name" defaultValue="unknown"/>
+
+    <!-- Console JSON (optional, useful for local debugging) -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <customFields>{"service":"${appName}"}</customFields>
+        </encoder>
+    </appender>
+
+    <!-- Splunk HEC (com.splunk.logging:splunk-library-javalogging).
+         url is the base Splunk server address only; the library appends
+         /services/collector/event/1.0 itself. -->
+    <appender name="SPLUNK_HEC" class="com.splunk.logging.HttpEventCollectorLogbackAppender">
+        <url>https://localhost:8088</url>
+        <token>${SPLUNK_HEC_TOKEN:-YOUR_HEC_TOKEN_HERE}</token>
+        <index>main</index>
+        <source>${appName}</source>
+        <sourcetype>json</sourcetype>
+        <host>localhost</host>
+        <disableCertificateValidation>true</disableCertificateValidation>
+        <includeMDC>true</includeMDC>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%msg</pattern>
+        </layout>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="SPLUNK_HEC"/>
+    </root>
+</configuration>

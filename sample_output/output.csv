@@ -1,0 +1,13 @@
+"_time",source,"properties.traceId","properties.spanId",message
+"2026-08-19T08:36:53.763+0000","service-a","6a856b25579844d97b1738a47ebe9eed
+6a856b25579844d97b1738a47ebe9eed","7b1738a47ebe9eed
+7b1738a47ebe9eed","Calling service-b
+Calling service-b"
+"2026-08-19T08:36:53.835+0000","service-b","6a856b25579844d97b1738a47ebe9eed
+6a856b25579844d97b1738a47ebe9eed","8f770d4d87c355ff
+8f770d4d87c355ff","Handling /hello in service-b
+Handling /hello in service-b"
+"2026-08-19T08:36:53.850+0000","service-a","6a856b25579844d97b1738a47ebe9eed
+6a856b25579844d97b1738a47ebe9eed","7b1738a47ebe9eed
+7b1738a47ebe9eed","Response from service-b: Hello from B
+Response from service-b: Hello from B"
